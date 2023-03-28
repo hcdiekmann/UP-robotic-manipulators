@@ -218,7 +218,7 @@ UBUNTU_VERSION="$(lsb_release -rs)"
 
 # set default ROS distro before reading clargs
 if [ "$DISTRO_SET_FROM_CL" = false ]; then
-  elif [ $UBUNTU_VERSION == "20.04" ]; then
+  if [ $UBUNTU_VERSION == "20.04" ]; then
     ROS_DISTRO_TO_INSTALL="galactic"
   elif [ $UBUNTU_VERSION == "22.04" ]; then
     ROS_DISTRO_TO_INSTALL="humble"
