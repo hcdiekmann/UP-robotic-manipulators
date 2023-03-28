@@ -85,7 +85,7 @@ function check_ubuntu_version() {
 
     20.04 )
       if contains_element $ROS_DISTRO_TO_INSTALL "${FOCAL_VALID_DISTROS[@]}"; then
-        echo -e "${GRN}Ubuntu version check complete. ${OFF}"
+        echo -e "${BLU}Ubuntu version check complete. ${OFF}"
       else
         failed "Chosen ROS distribution '$ROS_DISTRO_TO_INSTALL' is not supported on Ubuntu ${UBUNTU_VERSION}."
       fi
@@ -93,7 +93,7 @@ function check_ubuntu_version() {
 
     22.04 )
       if contains_element $ROS_DISTRO_TO_INSTALL "${JAMMY_VALID_DISTROS[@]}"; then
-        echo -e "${GRN}Ubuntu version check complete. ${OFF}"
+        echo -e "${BLU}Ubuntu version check complete. ${OFF}"
       else
         failed "Chosen ROS distribution '$ROS_DISTRO_TO_INSTALL' is not supported on Ubuntu ${UBUNTU_VERSION}."
       fi
@@ -115,8 +115,8 @@ function install_essential_packages() {
   python3 -m pip install modern_robotics
 }
 
-function install_ros2() {
-  # Install ROS 2
+function install_ros2_packages() {
+  # Install ROS 2 distro if not already installed
   if [ $(dpkg-query -W -f='${Status}' ros-$ROS_DISTRO_TO_INSTALL-desktop 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
     echo -e "${GRN}Installing ROS 2 $ROS_DISTRO_TO_INSTALL desktop...${OFF}"
     sudo apt install -y software-properties-common
@@ -138,7 +138,7 @@ function install_ros2() {
   fi
   source /opt/ros/$ROS_DISTRO_TO_INSTALL/setup.bash
 
-  # Install AprilTag unoffical ROS 2 port from Interbotix
+  # Install and build AprilTag unoffical ROS 2 port from Interbotix
   APRILTAG_WS=~/apriltag_ws
   if [ ! -d "$APRILTAG_WS/src" ]; then
     echo -e "${GRN}Installing Apriltag ROS Wrapper...${OFF}"
@@ -159,7 +159,7 @@ function install_ros2() {
   fi
   source $APRILTAG_WS/install/setup.bash
   
-  # Install Arm packages
+  # Install and build Interbotix Arm packages
   if [ ! -d "$INSTALL_PATH/src" ]; then
     echo -e "${GRN}Installing ROS 2 packages for the Interbotix Arm...${OFF}"
     mkdir -p $INSTALL_PATH/src
@@ -247,7 +247,7 @@ sudo apt update && sudo apt -y upgrade
 sudo apt -y autoremove
 
 install_essential_packages
-install_ros2
+install_ros2_packages
 setup_env_vars
 
 end_time="$(date -u +%s)"
