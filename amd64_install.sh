@@ -160,7 +160,7 @@ function install_ros2() {
   
   # Install Arm packages
   if [ ! -d "$INSTALL_PATH/src" ]; then
-    echo -e "${GRN}Installing ROS packages for the Interbotix Arm...${OFF}"
+    echo -e "${GRN}Installing ROS 2 packages for the Interbotix Arm...${OFF}"
     mkdir -p $INSTALL_PATH/src
     cd $INSTALL_PATH/src
     git clone https://github.com/hcdiekmann/UP-robotic-manipulators.git -b $ROS_DISTRO_TO_INSTALL
@@ -173,9 +173,9 @@ function install_ros2() {
     rosdep install --from-paths src --ignore-src -r -y
     colcon build
     if [ $? -eq 0 ]; then
-      echo -e "${GRN}${BOLD}Interbotix Arm ROS Packages built successfully!${NORM}${OFF}"
+      echo -e "${GRN}${BOLD}Interbotix Arm ROS 2 Packages built successfully!${NORM}${OFF}"
     else
-      failed "Failed to build Interbotix Arm ROS Packages."
+      failed "Failed to build Interbotix Arm ROS 2 Packages."
     fi
     echo "source $INSTALL_PATH/install/setup.bash" >> ~/.bashrc
   else
