@@ -35,8 +35,8 @@ Options:
 
   -d DISTRO       Install the DISTRO ROS distro compatible with your Ubuntu version. See
                   'https://github.com/Interbotix/.github/blob/main/SECURITY.md' for the list of
-                  supported distributions. If not given, installs the ROS 1 distro compatible with
-                  your Ubuntu version, or the stable ROS 2 distro if using Ubuntu 22.04 or later.
+                  supported distributions. If not given, installs the ROS distro compatible with
+                  your Ubuntu version.
 
   -p PATH         Sets the absolute install location for the Interbotix workspace. If not specified,
                   the Interbotix workspace directory will default to '~/interbotix_ws'.
