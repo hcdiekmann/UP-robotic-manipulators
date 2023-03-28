@@ -1,7 +1,4 @@
-![toolbox_banner](images/toolbox_banner.png)
-
 ## Overview
-![toolbox_repo_structure](images/toolbox_repo_structure.png)
 Welcome to the *interbotix_ros_toolboxes* repository! This repo contains support level ROS wrappers and robot interface modules that are used in many of our robotic platforms at [Trossen Robotics](https://www.trossenrobotics.com/).
 
 Links to other repositories that use this repo include:
@@ -14,8 +11,6 @@ Links to other repositories that use this repo include:
 
 | ROS Distro | X-Series ROS Toolboxes Build |
 | :------- | :------- |
-| ROS 1 Melodic | [![build-xs-melodic](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-melodic.yaml/badge.svg)](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-melodic.yaml) |
-| ROS 1 Noetic | [![build-xs-noetic](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-noetic.yaml/badge.svg)](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-noetic.yaml) |
 | ROS 2 Galactic | [![build-xs-galactic](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-galactic.yaml/badge.svg)](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-galactic.yaml) |
 | ROS 2 Humble | [![build-xs-humble](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-humble.yaml/badge.svg)](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-humble.yaml) |
 | ROS 2 Rolling | [![build-xs-rolling](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-rolling.yaml/badge.svg)](https://github.com/Interbotix/interbotix_ros_toolboxes/actions/workflows/xs-rolling.yaml) |
