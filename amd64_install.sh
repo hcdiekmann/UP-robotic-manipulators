@@ -111,6 +111,7 @@ function install_essential_packages() {
   sudo apt -y install openssh-server curl
   sudo apt -y install python3-pip
   sudo pip3 install transforms3d
+  sudo pip3 install setuptools==58.2.0
   python3 -m pip install modern_robotics
 }
 
@@ -164,9 +165,7 @@ function install_ros2() {
     mkdir -p $INSTALL_PATH/src
     cd $INSTALL_PATH/src
     git clone https://github.com/hcdiekmann/UP-robotic-manipulators.git -b $ROS_DISTRO_TO_INSTALL
-    # TODO remove below when moveit_visual_tools is available in apt repo
-    #git clone https://github.com/ros-planning/moveit_visual_tools.git -b ros2
-    cd interbotix_ros_core/interbotix_ros_xseries/interbotix_xs_sdk
+    cd UP-robotic-manipulators/interbotix_ros_core/interbotix_ros_xseries/interbotix_xs_sdk
     sudo cp 99-interbotix-udev.rules /etc/udev/rules.d/
     sudo udevadm control --reload-rules && sudo udevadm trigger
     cd $INSTALL_PATH
