@@ -14,5 +14,5 @@ Execute the script with optional flags.
 | Flag     | Description |
 | ----------- | ----------- |
 | -h   | Help message on script usage.                                                                  |
-| -d   | ROS 2 distro. If not given, installs the ROS distro compatible withyour Ubuntu version.        |
+| -d   | ROS 2 distro. If not given, installs the ROS distro compatible with your Ubuntu version.        |
 | -p   | Absolute installation path for the ROS workspace                                               |
