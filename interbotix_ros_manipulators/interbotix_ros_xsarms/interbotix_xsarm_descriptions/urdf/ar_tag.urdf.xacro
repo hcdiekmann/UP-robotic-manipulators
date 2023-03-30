@@ -7,8 +7,8 @@
   <joint name="ar_tag" type="fixed">
     <axis xyz="0 0 0"/>
     <origin
-      rpy="0 0 0"
-      xyz="-0.017 0 0.04155"/>
+      rpy="0 3.141593 0"
+      xyz="-0.015 0 -0.0112"/>
     <parent
       link="$(arg robot_name)/ee_arm_link"/>
     <child
@@ -22,7 +22,7 @@
         xyz="0 0 0"/>
       <geometry>
         <mesh
-          filename="${mesh_directory}/../ar_tag.stl"
+          filename="${mesh_directory}/../ar_tag_inside.stl"
           scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="interbotix_black"/>
@@ -33,7 +33,7 @@
         xyz="0 0 0"/>
       <geometry>
         <mesh
-          filename="${mesh_directory}/../ar_tag.stl"
+          filename="${mesh_directory}/../ar_tag_inside.stl"
           scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
