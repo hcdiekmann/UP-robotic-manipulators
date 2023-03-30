@@ -8,7 +8,7 @@
     <axis xyz="0 0 0"/>
     <origin
       rpy="0 3.141593 0"
-      xyz="-0.015 0 -0.0112"/>
+      xyz="-0.015 0 -0.012"/>
     <parent
       link="$(arg robot_name)/ee_arm_link"/>
     <child
