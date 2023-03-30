@@ -146,6 +146,8 @@ function install_ros2_packages() {
     cd $APRILTAG_WS/src
     git clone https://github.com/Interbotix/apriltag_ros.git -b ros2-port
     cd $APRILTAG_WS
+    sudo rosdep init
+    rosdep update --include-eol-distros
     rosdep install --from-paths src --ignore-src -r -y
     colcon build --cmake-args -DCMAKE_CXX_FLAGS="-w" # warnings as errors unrelated to ROS - disables this behavior
     if [ $? -eq 0 ]; then
