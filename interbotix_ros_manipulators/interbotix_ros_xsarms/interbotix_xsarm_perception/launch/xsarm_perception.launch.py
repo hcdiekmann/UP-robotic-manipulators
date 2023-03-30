@@ -55,13 +55,15 @@ def launch_setup(context, *args, **kwargs):
     load_configs_launch_arg = LaunchConfiguration('load_configs')
     robot_description_launch_arg = LaunchConfiguration('robot_description')
     xs_driver_logging_level_launch_arg = LaunchConfiguration('xs_driver_logging_level')
-
+    
+    camera_serial_no_launch_arg = LaunchConfiguration('rs_camera_serial_no')
     pointcloud_enable_launch_arg = LaunchConfiguration('rs_camera_pointcloud_enable')
     rbg_camera_profile_launch_arg = LaunchConfiguration('rs_camera_rbg_camera_profile')
     depth_module_profile_launch_arg = LaunchConfiguration('rs_camera_depth_module_profile')
+    align_depth_enable_launch_arg = LaunchConfiguration('rs_camera_align_depth_enable')
+    initial_reset_launch_arg = LaunchConfiguration('rs_camera_initial_reset')
     logging_level_launch_arg = LaunchConfiguration('rs_camera_logging_level')
     output_location_launch_arg = LaunchConfiguration('rs_camera_output_location')
-    initial_reset_launch_arg = LaunchConfiguration('rs_camera_initial_reset')
 
     filter_ns_launch_arg = LaunchConfiguration('filter_ns')
     filter_params_launch_arg = LaunchConfiguration('filter_params')
@@ -117,8 +119,10 @@ def launch_setup(context, *args, **kwargs):
         ]),
         launch_arguments={
             'camera_name': 'camera',
+            'serial_no': camera_serial_no_launch_arg,
             'rgb_camera.profile': rbg_camera_profile_launch_arg,
             'depth_module.profile': depth_module_profile_launch_arg,
+            'align_depth.enable': align_depth_enable_launch_arg,
             'pointcloud.enable': pointcloud_enable_launch_arg,
             'initial_reset': initial_reset_launch_arg,
             'log_level': logging_level_launch_arg,
@@ -251,6 +255,13 @@ def generate_launch_description():
     )
     declared_arguments.append(
         DeclareLaunchArgument(
+            'rs_camera_serial_no',
+            default_value='',
+            description="choose a camera by serial number, when multiple rs devices are connected",
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
             'rs_camera_pointcloud_enable',
             default_value='true',
             choices=('true', 'false'),
@@ -273,6 +284,25 @@ def generate_launch_description():
     )
     declared_arguments.append(
         DeclareLaunchArgument(
+            'rs_camera_align_depth_enable',
+            default_value='true',
+            choices=('true', 'false'),
+            description='If true, will publish the depth image aligned to the color image',
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            'rs_camera_initial_reset',
+            default_value='false',
+            choices=('true', 'false'),
+            description=(
+                'On occasions the RealSense camera is not closed properly and due to firmware '
+                'issues needs to reset. If set to `true`, the device will reset prior to usage.'
+            ),
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
             'rs_camera_logging_level',
             default_value='info',
             choices=('debug', 'info', 'warn', 'error', 'fatal'),
@@ -285,17 +315,6 @@ def generate_launch_description():
             default_value='screen',
             choices=('screen', 'log'),
             description='set the logging location for the realsense2_camera launch include.',
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            'rs_camera_initial_reset',
-            default_value='false',
-            choices=('true', 'false'),
-            description=(
-                'On occasions the RealSense camera is not closed properly and due to firmware '
-                'issues needs to reset. If set to `true`, the device will reset prior to usage.'
-            ),
         )
     )
     declared_arguments.append(
@@ -374,7 +393,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             'camera_color_topic',
-            default_value='camera/color/image_raw',
+            default_value='camera/color/image_rect_raw',
             description='the absolute ROS topic name to subscribe to color images.',
         )
     )
