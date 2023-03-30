@@ -21,11 +21,10 @@ ROS2_VALID_DISTROS=('galactic' 'humble' 'rolling')
 FOCAL_VALID_DISTROS=('galactic')
 JAMMY_VALID_DISTROS=('humble' 'rolling')
 
-NONINTERACTIVE=false
 DISTRO_SET_FROM_CL=false
 INSTALL_PATH=~/interbotix_ws
 
-_usage="${BOLD}USAGE: ./amd64_install.sh [-h][-d DISTRO][-p PATH][-n]${NORM}
+_usage="${BOLD}USAGE: ./amd64_install.sh [-h][-d DISTRO][-p PATH]${NORM}
 
 Install the Interbotix X-Series Arms packages and their dependencies.
 
@@ -39,11 +38,7 @@ Options:
                   your Ubuntu version.
 
   -p PATH         Sets the absolute install location for the Interbotix workspace. If not specified,
-                  the Interbotix workspace directory will default to '~/interbotix_ws'.
-
-  -n              Install all packages and dependencies without prompting. This is useful if
-                  you're running this script in a non-interactive terminal like when building a
-                  Docker image."
+                  the Interbotix workspace directory will default to '~/interbotix_ws'."
 
 
 function help() {
@@ -86,6 +81,8 @@ function check_ubuntu_version() {
     20.04 )
       if contains_element $ROS_DISTRO_TO_INSTALL "${FOCAL_VALID_DISTROS[@]}"; then
         echo -e "${BLU}Ubuntu version check complete. ${OFF}"
+        echo -e "\n\n"
+        echo -e "${BLU}Installing ROS 2 $ROS_DISTRO_TO_INSTALL for Ubuntu ${UBUNTU_VERSION}. ${OFF}"
       else
         failed "Chosen ROS distribution '$ROS_DISTRO_TO_INSTALL' is not supported on Ubuntu ${UBUNTU_VERSION}."
       fi
@@ -94,6 +91,8 @@ function check_ubuntu_version() {
     22.04 )
       if contains_element $ROS_DISTRO_TO_INSTALL "${JAMMY_VALID_DISTROS[@]}"; then
         echo -e "${BLU}Ubuntu version check complete. ${OFF}"
+        echo -e "\n\n"
+        echo -e "${BLU}Installing ROS 2 $ROS_DISTRO_TO_INSTALL for Ubuntu ${UBUNTU_VERSION}. ${OFF}"
       else
         failed "Chosen ROS distribution '$ROS_DISTRO_TO_INSTALL' is not supported on Ubuntu ${UBUNTU_VERSION}."
       fi
@@ -196,11 +195,10 @@ function setup_env_vars() {
 }
 
 # parse command line arguments
-while getopts 'hnd:p:' OPTION;
+while getopts 'hd:p:' OPTION;
 do
   case "$OPTION" in
     h) help && exit 0;;
-    n) NONINTERACTIVE=true;;
     d) ROS_DISTRO_TO_INSTALL="$OPTARG" && DISTRO_SET_FROM_CL=true && validate_distro;;
     p) INSTALL_PATH="$OPTARG";;
     *) echo "Unknown argument $OPTION" && help && exit 0;;
