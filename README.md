@@ -1,5 +1,5 @@
 # UP-robotic-manipulators
-ROS 2 packages for interfacing with the Interbotix X-Series arms mounted on the UP dev kit AMR.
+ROS 2 packages for interfacing with the Interbotix X-Series arms mounted on the UP autnomous mobile robot (AMR) development kit.
 
 ## Installation
 Download the installation script and make it executable. 
