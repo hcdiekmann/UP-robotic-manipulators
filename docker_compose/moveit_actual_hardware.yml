@@ -1,0 +1,23 @@
+version: '3.9'
+# To execute this docker-compose yml file use command:
+#   docker-compose -f <file_name> up [--build] [--no-start] [--no-build] [--force-recreate / --no-recreate] [--detach]
+# For more info about options: docker-compose up --help
+
+services:
+
+  amr-interbotix-arm:
+    image: amr-interbotix-manipulators:${DOCKER_TAG:-latest}
+    container_name: amr-interbotix-manipulators
+    network_mode: host
+    volumes:
+      - /dev/ttyDXL:/dev/ttyDXL
+    tty: true
+    environment:
+      - DISPLAY
+    command:
+      - bash
+      - -c
+      - |
+        source ~/interbotix_ws/install/setup.bash
+        source ~/apriltag_ws/install/setup.bash
+        ros2 launch interbotix_xsarm_moveit xsarm_moveit.launch.py robot_model:=px100 show_ar_tag:=true hardware_type:=actual
