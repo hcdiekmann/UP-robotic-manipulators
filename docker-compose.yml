@@ -6,16 +6,18 @@ version: '3.9'
 services:
 
   amr-interbotix-arm:
-    image: amr-interbotix-arm:${DOCKER_TAG:-latest}
-    container_name: amr-interbotix-arm
+    image: amr-interbotix-manipulators:${DOCKER_TAG:-latest}
+    container_name: amr-interbotix-manipulators
     volumes:
       - /dev/ttyDXL:/dev/ttyDXL
     network_mode: host
+    environment:
+      - DISPLAY
     command:
       - bash
       - -c
       - |
-        source /home/interbotix_ws/install/setup.bash
-        source /home/apriltag_ws/install/setup.bash
-        ros2 launch interbotix_xsarm_descriptions xsarm_description.launch.py robot_model:=px100 use_joint_pub_gui:=true
+        source ~/interbotix_ws/install/setup.bash
+        source ~/apriltag_ws/install/setup.bash
+        ros2 launch interbotix_xsarm_moveit_interface xsarm_moveit_interface.launch.py robot_model:=px100 hardware_type:=fake
       
