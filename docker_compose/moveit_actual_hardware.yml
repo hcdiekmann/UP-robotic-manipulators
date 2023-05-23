@@ -13,7 +13,7 @@ services:
       - /dev/ttyDXL:/dev/ttyDXL
     devices:
       - /dev/ttyDXL
-    environment:
+    environment: # requires running command: "xhost local:root" on host to view RViz
       - DISPLAY
     command:
       - bash

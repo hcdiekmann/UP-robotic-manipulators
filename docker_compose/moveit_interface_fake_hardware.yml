@@ -9,7 +9,7 @@ services:
     image: amr-interbotix-manipulators:${DOCKER_TAG:-latest}
     container_name: amr-interbotix-manipulators
     network_mode: host
-    environment:
+    environment: # requires running command: "xhost local:root" on host to view RViz
       - DISPLAY
     command:
       - bash
