@@ -491,11 +491,17 @@ class InterbotixPointCloudInterface(Node):
             'final_clusters' list is empty, but if `True`, a list of dictionaries representing each
             cluster is returned to the user
         """
-        future_get_cluster_pos = self.srv_get_cluster_positions.call_async(
-            ClusterInfoArray.Request()
-        )
+        if not self.srv_get_cluster_positions.wait_for_service(timeout_sec=1.0):
+            self.node_inf.get_logger().error("Cluster position service is not available.")
+            return False, []
+        future_get_cluster_pos = self.srv_get_cluster_positions.call_async(ClusterInfoArray.Request())
         self.spin_until_future_complete(future_get_cluster_pos)
-        root_clusters: List[ClusterInfo] = future_get_cluster_pos.result().clusters
+        result = future_get_cluster_pos.result()
+        if result is None:
+            self.node_inf.get_logger().error("Failed to get cluster positions.")
+            return False, []
+        root_clusters: List[ClusterInfo] = result.clusters
+
         num_clusters = len(root_clusters)
         if num_clusters == 0:
             self.node_inf.get_logger().warning('No clusters found...')
